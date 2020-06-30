@@ -1,7 +1,7 @@
 import functools
 import requests
 from urllib.parse import quote
-
+from flask_cors import cross_origin
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, json, jsonify, make_response
 )
@@ -55,6 +55,7 @@ def get_user_profile(token):
 
 
 @bp.route("/redirect-spotify")
+@cross_origin()
 def index():
     url_args = "&".join(["{}={}".format(key, quote(val))
                          for key, val in auth_query_parameters.items()])
@@ -63,6 +64,7 @@ def index():
 
 
 @bp.route('/user', methods=('GET', 'POST'))
+@cross_origin()
 def get_user():
     access_token = ''
 
@@ -95,6 +97,7 @@ def get_user():
     return res
 
 @bp.route('/logout')
+@cross_origin()
 def logout():
     session.clear()
     return 'True'
