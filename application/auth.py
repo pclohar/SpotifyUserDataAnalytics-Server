@@ -70,7 +70,7 @@ def get_user():
 
     if request.method == 'POST':
         data = request.json
-        auth_token = data['code']
+        auth_token = (data['code']).strip()
         print('Auth Token : ', auth_token)
         post_request = requests.post(SPOTIFY_TOKEN_URL, data=auth_payload(auth_token))
         
