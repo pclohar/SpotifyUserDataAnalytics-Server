@@ -5,6 +5,7 @@ import os
 def create_app():
     # create and configure the app
     flaskApp = Flask(__name__, instance_relative_config=True)
+    CORS(flaskApp)
     flaskApp.config.from_mapping(
         SECRET_KEY='dev'
     )
