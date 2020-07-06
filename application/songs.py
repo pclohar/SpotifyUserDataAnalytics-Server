@@ -1,4 +1,5 @@
 import functools
+from flask_cors import cross_origin
 import requests
 from urllib.parse import quote
 from flask import (
@@ -21,6 +22,7 @@ user_recent_songs_parameters ={
 }
 
 @bp.route("/top",methods=["GET"])
+@cross_origin()
 def get_top_songs():
 
     endpoint = make_request(user_top_songs_parameters, USER_TOP_SONGS_URL)
@@ -34,6 +36,7 @@ def get_top_songs():
 
 
 @bp.route("/recent",methods=["GET"])
+@cross_origin()
 def get_recent_songs():
 
     endpoint = make_request(user_recent_songs_parameters, USER_RECENTLY_PLAYED)
