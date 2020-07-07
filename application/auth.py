@@ -1,5 +1,6 @@
 import functools
 import requests
+import datetime
 from urllib.parse import quote
 from flask_cors import cross_origin
 from flask import (
@@ -76,7 +77,7 @@ def get_user():
         req_text = post_request.text
         if "error" in req_text:
             return req_text["error_description"]
-            
+
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
         refresh_token = response_data["refresh_token"]
