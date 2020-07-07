@@ -24,7 +24,7 @@ user_recent_songs_parameters ={
 @bp.route("/top",methods=["GET"])
 @cross_origin()
 def get_top_songs():
-
+    print("reached get_top_songs")
     endpoint = make_request(user_top_songs_parameters, USER_TOP_SONGS_URL)
     print("Endpoint :", endpoint)
     top_songs_response = get_response(endpoint)
