@@ -19,7 +19,7 @@ API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 # Server-side Parameters
-REDIRECT_URI = "http://localhost:3000/login"
+REDIRECT_URI = "https://spotify-music-analytics-server.herokuapp.com/login"
 SCOPE = "user-read-recently-played user-top-read user-read-email user-read-private"
 
 USER_TOP_SONGS_URL = 'https://api.spotify.com/v1/me/top/tracks'
