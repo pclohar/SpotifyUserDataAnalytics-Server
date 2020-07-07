@@ -74,7 +74,9 @@ def get_user():
         print('Auth Token : ', auth_token)
         post_request = requests.post(SPOTIFY_TOKEN_URL, data=auth_payload(auth_token))
         req_text = post_request.text
-        print("Post Request :", req_text)
+        if "error" in req_text:
+            return req_text["error_description"]
+            
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
         refresh_token = response_data["refresh_token"]
@@ -93,7 +95,7 @@ def get_user():
     session['user_id'] = profile_data['id']
     
     res = make_response(jsonify(profile_data), 200)
-    res.set_cookie('access_token', access_token)
+    res.set_cookie('access_token', access_token, expires=datetime.datetime.now() + datetime.timedelta(days=30))
 
     return res
 
