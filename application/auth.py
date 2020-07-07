@@ -97,7 +97,7 @@ def get_user():
     
     res = make_response(jsonify(profile_data), 200)
     res.set_cookie('access_token', access_token, expires=datetime.datetime.now() + datetime.timedelta(days=30))
-
+    print("access token :",request.cookies)
     return res
 
 @bp.route('/logout')
