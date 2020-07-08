@@ -28,6 +28,8 @@ def get_top_songs():
     endpoint = make_request(user_top_songs_parameters, USER_TOP_SONGS_URL)
     print("Endpoint :", endpoint)
     top_songs_response = get_response(endpoint)
+    if 'access_token' in session:
+        print('Here for acccesss token', session['access_token'])
     print("access token :",request.cookies.get('access_token'))
     res = json.loads(top_songs_response.text)
     res = make_response(jsonify(res['items']), 200)
