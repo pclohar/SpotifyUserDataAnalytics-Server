@@ -96,7 +96,7 @@ def get_user():
     session['user_id'] = profile_data['id']
     
     res = make_response(jsonify(profile_data), 200)
-    res.set_cookie('access_token', access_token, domain=".herokuapp.com")
+    res.set_cookie('access_token', access_token, domain=".herokuapp.com", samesite='lax')
     return res
 
 @bp.route('/logout')
