@@ -99,6 +99,7 @@ def get_user():
     
     res = make_response(jsonify(profile_data), 200)
     res.set_cookie('access_token', access_token, domain="spotify-music-analytics.herokuapp.com")
+    res.set_cookie('access_token', access_token)
     return res
 
 @bp.route('/logout')
