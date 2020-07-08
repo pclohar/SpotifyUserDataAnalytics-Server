@@ -7,7 +7,7 @@ def create_app():
     flaskApp = Flask(__name__, instance_relative_config=True)
     CORS(flaskApp)
     flaskApp.config.from_mapping(
-        SECRET_KEY='dev'
+        SECRET_KEY = b';y\xd3\xd3\xe5\xa6\x119(&;Ea\x17\xfe\xdc'
     )
 
     
