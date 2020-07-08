@@ -75,10 +75,10 @@ def get_user():
         auth_token = data['code']
         print('Auth Token : ', auth_token)
         post_request = requests.post(SPOTIFY_TOKEN_URL, data=auth_payload(auth_token))
-        req_text = post_request.text
-        if "error" in req_text:
-            err = json.loads(req_text)
-            return err["error_description"]
+#        req_text = post_request.text
+#        if "error" in req_text:
+#            err = json.loads(req_text)
+#            return err["error_description"]
 
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
