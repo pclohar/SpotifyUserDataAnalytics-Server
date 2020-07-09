@@ -21,8 +21,8 @@ API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 # Server-side Parameters
-#REDIRECT_URI = "https://spotify-music-analytics.herokuapp.com/login"
-REDIRECT_URI = "http://localhost:3000/login"
+REDIRECT_URI = "https://spotify-music-analytics.herokuapp.com/login"
+#REDIRECT_URI = "http://localhost:3000/login"
 SCOPE = "user-read-recently-played user-top-read user-read-email user-read-private"
 
 
@@ -93,6 +93,7 @@ def get_user():
         return 'Not logged in'
       
     session['user_id'] = profile_data['id']
+    profile_data['access_token'] = session['access_token']
     
     res = make_response(jsonify(profile_data), 200)
     res.set_cookie('access_token', access_token)
