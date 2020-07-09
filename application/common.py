@@ -17,9 +17,9 @@ def make_request(query_parameters, url):
     endpoint = "{}?{}".format(url, url_args)
     return endpoint
 
-def get_response(endpoint):
+def get_response(endpoint, access_token):
     response = requests.get(
-        endpoint, headers=get_auth_header(request.cookies.get('access_token'))
+        endpoint, headers=get_auth_header(access_token)
     )
 
     return response

@@ -1,7 +1,8 @@
 import functools
 from flask_cors import cross_origin
 import requests
-from urllib.parse import quote
+import urllib.parse as urlparse
+from urllib.parse import parse_qs
 from flask import (
     Blueprint, request, session, json, jsonify, make_response
 )
@@ -24,10 +25,13 @@ user_recent_songs_parameters ={
 @bp.route("/top",methods=["GET"])
 @cross_origin()
 def get_top_songs():
+    url = request.url
+    parsed = urlparse.urlparse(url)
+    access_token = parse_qs(parsed.query)['access_token'][0]
 
     endpoint = make_request(user_top_songs_parameters, USER_TOP_SONGS_URL)
 
-    top_songs_response = get_response(endpoint)
+    top_songs_response = get_response(endpoint, access_token)
 
     res = json.loads(top_songs_response.text)
     res = make_response(jsonify(res['items']), 200)
@@ -38,9 +42,12 @@ def get_top_songs():
 @bp.route("/recent",methods=["GET"])
 @cross_origin()
 def get_recent_songs():
+    url = request.url
+    parsed = urlparse.urlparse(url)
+    access_token = parse_qs(parsed.query)['access_token'][0]
 
     endpoint = make_request(user_recent_songs_parameters, USER_RECENTLY_PLAYED)
-    recent_songs_response = get_response(endpoint)
+    recent_songs_response = get_response(endpoint, access_token)
 
     res = json.loads(recent_songs_response.text)
     res = make_response(jsonify(res['items']), 200)
