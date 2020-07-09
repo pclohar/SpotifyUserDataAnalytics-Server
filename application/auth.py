@@ -3,6 +3,7 @@ import requests
 import datetime
 from urllib.parse import quote
 from flask_cors import cross_origin
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, json, jsonify, make_response
 )
@@ -20,8 +21,8 @@ API_VERSION = "v1"
 SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 
 # Server-side Parameters
-REDIRECT_URI = "https://spotify-music-analytics.herokuapp.com/login"
-#REDIRECT_URI = "http://localhost:3000/login"
+#REDIRECT_URI = "https://spotify-music-analytics.herokuapp.com/login"
+REDIRECT_URI = "http://localhost:3000/login"
 SCOPE = "user-read-recently-played user-top-read user-read-email user-read-private"
 
 
@@ -73,12 +74,8 @@ def get_user():
     if request.method == 'POST':
         data = request.json
         auth_token = data['code']
-        print('Auth Token : ', auth_token)
+
         post_request = requests.post(SPOTIFY_TOKEN_URL, data=auth_payload(auth_token))
-#        req_text = post_request.text
-#        if "error" in req_text:
-#            err = json.loads(req_text)
-#            return err["error_description"]
 
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
@@ -98,7 +95,6 @@ def get_user():
     session['user_id'] = profile_data['id']
     
     res = make_response(jsonify(profile_data), 200)
-    res.set_cookie('access_token', access_token, domain="spotify-music-analytics.herokuapp.com")
     res.set_cookie('access_token', access_token)
     return res
 
